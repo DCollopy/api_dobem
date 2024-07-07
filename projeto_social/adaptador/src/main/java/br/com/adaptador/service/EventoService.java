@@ -1,9 +1,11 @@
 package br.com.adaptador.service;
 import br.com.dominio.entidade.Evento;
 import br.com.dominio.entidade.Usuario;
+import br.com.dominio.usercase.EventoValida;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,17 +13,25 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 @Service
+@DependsOn("firebaseConfig")
 public class EventoService {
 
     private final Firestore db;
+    private EventoValida eventoValida;
 
     public EventoService() {
         db = FirestoreClient.getFirestore();
     }
 
+    public EventoService(Firestore db, EventoValida eventoValida) {
+        this.db = db;
+        this.eventoValida = eventoValida;
+    }
+
     public String salvarEvento(Evento evento) throws ExecutionException, InterruptedException {
+        Evento event = eventoValida.criaEvento(evento);
         DocumentReference docRef = db.collection("eventos").document();
-        ApiFuture<WriteResult> result = docRef.set(evento);
+        ApiFuture<WriteResult> result = docRef.set(event);
         return docRef.getId();
     }
 

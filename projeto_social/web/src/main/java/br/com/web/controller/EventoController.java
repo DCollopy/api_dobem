@@ -3,12 +3,10 @@ package br.com.web.controller;
 import br.com.adaptador.service.EventoService;
 import br.com.dominio.entidade.Evento;
 import br.com.dominio.entidade.Usuario;
-import br.com.dominio.usercase.EventoValida;
 import br.com.web.converter.EventoMapper;
 import br.com.web.converter.UsuarioMapper;
 import br.com.web.dto.EventoDto;
 import br.com.web.dto.UsuarioDto;
-import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,29 +17,26 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/eventos")
+@RequestMapping("/projeto/eventos")
 public class EventoController {
-    @Autowired
-    private final EventoService eventoService;
-    @Autowired
-    private final EventoValida eventoValida;
-    @Autowired
-    private final EventoMapper eventoMapper;
-    @Autowired
-    private UsuarioMapper usuarioMapper;
 
-    @Autowired
-    public EventoController(EventoService eventoService, EventoValida eventoValida, EventoMapper eventoMapper) {
+    private final EventoService eventoService;
+
+    private final EventoMapper eventoMapper;
+
+    private final UsuarioMapper usuarioMapper;
+
+
+    public EventoController(EventoService eventoService, EventoMapper eventoMapper,UsuarioMapper usuarioMapper) {
         this.eventoService = eventoService;
-        this.eventoValida = eventoValida;
         this.eventoMapper = eventoMapper;
+        this.usuarioMapper = usuarioMapper;
     }
 
     @PostMapping
     public ResponseEntity<String> criarEvento(@RequestBody EventoDto eventoDto) {
         try {
             Evento evento = eventoMapper.toEntity(eventoDto);
-            eventoValida.criaEvento(evento);
             String id = eventoService.salvarEvento(evento);
             return new ResponseEntity<>(id, HttpStatus.CREATED);
         } catch (IllegalArgumentException | InterruptedException | ExecutionException e) {
@@ -84,7 +79,6 @@ public class EventoController {
     public ResponseEntity<Void> atualizarEvento(@PathVariable String id, @RequestBody EventoDto eventoDto) {
         try {
             Evento evento = eventoMapper.toEntity(eventoDto);
-            eventoValida.criaEvento(evento);
             boolean atualizado = eventoService.atualizarEvento(id, evento);
             return atualizado ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (IllegalArgumentException | InterruptedException | ExecutionException e) {
@@ -112,7 +106,6 @@ public class EventoController {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
             Usuario participante = usuarioMapper.toEntity(participanteDto);
-            eventoValida.criaParticipante(evento, participante);
             boolean atualizado = eventoService.adicionarParticipante(id, participante);
             return atualizado ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (IllegalArgumentException | InterruptedException | ExecutionException e) {

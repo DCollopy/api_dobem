@@ -2,26 +2,22 @@ package br.com.web.converter;
 
 import br.com.dominio.entidade.Evento;
 import br.com.web.dto.EventoDto;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 @Component
 public class EventoMapper {
 
+    private final ModelMapper modelMapper;
+    public EventoMapper(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
     public Evento toEntity(EventoDto eventoDto) {
-        return new Evento(
-                eventoDto.nome_evento(),
-                eventoDto.dia_evento(),
-                eventoDto.descricao(),
-                eventoDto.usuario()
-        );
+        return modelMapper.map(eventoDto,Evento.class);
     }
 
     public EventoDto toDto(Evento evento) {
-        return new EventoDto(
-                evento.getNome_evento(),
-                evento.getDia_evento(),
-                evento.getDescricao(),
-                evento.getUsuario()
-        );
+        return modelMapper.map(evento,EventoDto.class);
     }
 }

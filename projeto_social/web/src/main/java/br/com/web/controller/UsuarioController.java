@@ -14,12 +14,17 @@ import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/usuario")
+@RequestMapping("/projeto/usuario")
 public class UsuarioController {
-    @Autowired
+
     private UsuarioService usuarioService;
-    @Autowired
+
     private UsuarioMapper usuarioMapper;
+
+    public UsuarioController(UsuarioService usuarioService, UsuarioMapper usuarioMapper) {
+        this.usuarioService = usuarioService;
+        this.usuarioMapper = usuarioMapper;
+    }
 
     @PostMapping
     public ResponseEntity<String> criarUsuario(@RequestBody UsuarioDto usuarioDto) throws ExecutionException, InterruptedException {

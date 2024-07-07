@@ -4,7 +4,6 @@ import br.com.adaptador.service.EmpresaService;
 import br.com.dominio.entidade.Empresa;
 import br.com.web.converter.EmpresaMapper;
 import br.com.web.dto.EmpresaDto;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,12 +13,12 @@ import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/empresas")
+@RequestMapping("/projeto/empresas")
 public class EmpresaController {
     private final EmpresaService empresaService;
+
     private final EmpresaMapper empresaMapper;
 
-    @Autowired
     public EmpresaController(EmpresaService empresaService, EmpresaMapper empresaMapper) {
         this.empresaService = empresaService;
         this.empresaMapper = empresaMapper;

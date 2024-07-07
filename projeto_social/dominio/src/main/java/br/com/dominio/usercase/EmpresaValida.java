@@ -4,7 +4,7 @@ import br.com.dominio.entidade.Empresa;
 
 import java.util.logging.Logger;
 
-public abstract class EmpresaValida {
+public class EmpresaValida {
 
     public Empresa criaEmpresa(Empresa empresa) {
         try {

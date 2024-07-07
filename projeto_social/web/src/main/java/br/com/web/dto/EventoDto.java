@@ -1,6 +1,12 @@
 package br.com.web.dto;
 
 import br.com.dominio.entidade.Usuario;
+import lombok.Data;
 
-public record EventoDto(String nome_evento, String dia_evento, String descricao, Usuario usuario) {
+@Data
+public class EventoDto {
+    private String nome_evento;
+    private String dia_evento;
+    private String descricao;
+    private Usuario usuario;
 }

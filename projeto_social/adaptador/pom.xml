@@ -11,20 +11,33 @@
 
     <groupId>br.com.adaptador</groupId>
     <artifactId>adaptador</artifactId>
-
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-parent</artifactId>
+                <version>3.3.1</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 <dependencies>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
     <dependency>
         <groupId>com.google.firebase</groupId>
         <artifactId>firebase-admin</artifactId>
         <version>9.2.0</version>
     </dependency>
     <dependency>
-        <groupId>br.com</groupId>
+        <groupId>br.com.dominio</groupId>
         <artifactId>dominio</artifactId>
         <version>0.0.1-SNAPSHOT</version>
         <scope>compile</scope>
     </dependency>
-
 </dependencies>
     <properties>
         <maven.compiler.source>20</maven.compiler.source>

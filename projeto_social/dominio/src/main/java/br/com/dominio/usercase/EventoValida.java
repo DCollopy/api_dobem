@@ -5,7 +5,7 @@ import br.com.dominio.entidade.Usuario;
 
 import java.util.logging.Logger;
 
-public class EventoValida {
+public abstract  class EventoValida {
     public Evento criaEvento(Evento evento){
         try{
             Evento eve = new Evento(evento.getNome_evento(),evento.getDia_evento(),evento.getDescricao(), evento.getUsuario());

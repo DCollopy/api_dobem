@@ -3,15 +3,12 @@ package br.com.web.converter;
 import br.com.dominio.entidade.Empresa;
 import br.com.web.dto.EmpresaDto;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class EmpresaMapper {
 
     private final ModelMapper modelMapper;
-
-    @Autowired
     public EmpresaMapper(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
     }

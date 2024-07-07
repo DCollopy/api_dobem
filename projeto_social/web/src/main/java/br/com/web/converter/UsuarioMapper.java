@@ -2,11 +2,11 @@ package br.com.web.converter;
 import br.com.dominio.entidade.Usuario;
 import br.com.web.dto.UsuarioDto;
 import org.modelmapper.ModelMapper;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UsuarioMapper {
-
     private final ModelMapper modelMapper;
 
     public UsuarioMapper(ModelMapper modelMapper) {
@@ -18,6 +18,7 @@ public class UsuarioMapper {
     }
 
     public UsuarioDto toDto(Usuario usuario) {
+
         return modelMapper.map(usuario, UsuarioDto.class);
     }
 }
